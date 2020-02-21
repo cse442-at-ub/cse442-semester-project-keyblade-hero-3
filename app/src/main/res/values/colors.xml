@@ -3,4 +3,7 @@
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
+    <color name="buffalo_blue">#4482ab</color>
+    <color name="buffalo_dark_blue">#046bba</color>
+    <color name="buffalo_dark_blue_m_opacity">#75046bba</color>
 </resources>
