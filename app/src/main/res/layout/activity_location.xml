@@ -24,5 +24,16 @@ android:layout_margin="5dp"
 android:text="Done"
 android:textColor="#ffffff" />
 
+    <EditText
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/map"
+        android:hint="Additional Information"
+        android:background="@drawable/rectangle"
+        android:singleLine="true"
+        android:layout_marginBottom="30dp"
+        />
+
 
 </RelativeLayout>
