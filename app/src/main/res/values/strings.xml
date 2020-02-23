@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">UB_Eats</string>
+    <string name="app_name1">UB_Eats</string>
     <string name="userName">Username</string>
     <string name="password">Enter Password</string>
     <string name="hintName">Please Enter your Username</string>
