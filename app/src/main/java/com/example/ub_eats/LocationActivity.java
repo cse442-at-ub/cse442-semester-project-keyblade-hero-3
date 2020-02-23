@@ -1,21 +1,35 @@
 package com.example.ub_eats;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
+import android.location.Location;
+import android.os.Bundle;
+import android.util.Log;
+
+import androidx.annotation.NonNull;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentActivity;
 
-import android.os.Bundle;
-
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 
 public class LocationActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
+    private boolean mLocationPermissionGranted = false;
+    private FusedLocationProviderClient locationProviderClient;
+    private static final String TAG = "Location Activity";
+    private static final int FINE_LOCATION_PERMISSION = 100;
 
-    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_location);
@@ -23,6 +37,10 @@ public class LocationActivity extends FragmentActivity implements OnMapReadyCall
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
+
+
+        locationProviderClient = LocationServices.getFusedLocationProviderClient(this);
     }
 
 
@@ -37,11 +55,67 @@ public class LocationActivity extends FragmentActivity implements OnMapReadyCall
      */
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        mMap = googleMap;
+        getLastKnownLocation(googleMap);
+    }
 
-        // Add a marker in Sydney and move the camera
-        LatLng sydney = new LatLng(-34, 151);
-        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+    private void getLastKnownLocation(final GoogleMap gMap){
+        //If we dont have permission request it
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED) {
+            //We dont have permission, request it
+            ActivityCompat.requestPermissions(this,
+                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                    FINE_LOCATION_PERMISSION);
+            Log.d(TAG, "Permission we do not have sadly");
+        }
+
+
+        else {//We have permission so get location
+            locationProviderClient.getLastLocation().addOnSuccessListener(this, new OnSuccessListener<Location>() {
+                @Override
+                public void onSuccess(Location location) {
+                    if (location != null) {
+                        Log.d(TAG, "Latitude " + location.getLatitude());
+                        Log.d(TAG, "Longitude " + location.getLongitude());
+
+
+                        mMap = gMap;
+
+                        // Add a marker in Sydney and move the camera
+                        LatLng sydney = new LatLng(location.getLatitude(), location.getLongitude());
+                        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker placed"));
+                        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(location.getLatitude(), location.getLongitude()), 20.0f));
+                    }
+                }
+            })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Log.d(TAG, "Error trying to get last GPS location");
+                            e.printStackTrace();
+                        }
+                    });
+                }
+            }
+
+
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           String[] permissions, int[] grantResults) {
+        switch (requestCode) {
+            case FINE_LOCATION_PERMISSION: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    // permission granted
+                    Log.d(TAG, "We went here though...what?");
+                    //Restart the activity
+                    recreate();
+                } else {
+                    Log.d(TAG, "Here is where we put a blank activity");
+                }
+            }
+        }
     }
 }
