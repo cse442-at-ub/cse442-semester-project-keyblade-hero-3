@@ -27,6 +27,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
+
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 
@@ -143,5 +145,8 @@ public class LocationActivity extends FragmentActivity implements OnMapReadyCall
     public void onClick(View view) {
         Intent intent = new Intent(this, MenuMain.class);
         startActivity(intent);
+
+        Toast.makeText(this, "Thank you for ordering, you will be contacted when " +
+                "a deliverer accepts your order!", Toast.LENGTH_LONG).show();
     }
 }
