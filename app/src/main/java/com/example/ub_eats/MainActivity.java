@@ -16,7 +16,18 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
     }
 
-
+    public void onClick(View v){
+        switch (v.getId()){
+            case R.id.signupButton:
+                Intent intent=new Intent(this, Registration.class);
+                startActivity(intent);
+                break;
+            case R.id.loginButton:
+                Intent intent2=new Intent(this, MenuMain.class);
+                startActivity(intent2);
+        }
+    }
+/*
     public void onClick(View view) {
         Intent intent = new Intent(this, Registration.class);
         startActivity(intent);
@@ -25,5 +36,5 @@ public class MainActivity extends AppCompatActivity {
     public void onClickMain(View view){
         Intent intent = new Intent(this, MenuMain.class);
         startActivity(intent);
-    }
+    }*/
 }

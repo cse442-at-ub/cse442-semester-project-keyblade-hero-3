@@ -26,11 +26,12 @@
         app:layout_constraintTop_toTopOf="parent" tools:targetApi="o"/>
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/cancelButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="176dp"
         android:background="@drawable/default_button"
+        android:onClick="onClick"
         android:text="@android:string/cancel"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -38,16 +39,17 @@
         app:layout_constraintTop_toBottomOf="@+id/editText" />
 
     <Button
-        android:id="@+id/button3"
+        android:id="@+id/confirmButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:background="@color/colorAccent"
+        android:onClick="onClick"
         android:text="@string/confirm"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button2" />
+        app:layout_constraintTop_toBottomOf="@+id/cancelButton" />
 
     <AutoCompleteTextView
         android:id="@+id/price_total"

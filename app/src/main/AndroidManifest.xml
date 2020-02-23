@@ -32,6 +32,21 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
 
+        <activity android:name=".Registration" />
+        <activity android:name=".OrderConfirmation"/>
+        <activity android:name=".MainScreen"/>
+        <activity android:name=".Main2Activity"/>
+        <activity android:name=".secondActivity"/>
+        <activity android:name=".PaymentActivity"/>
+        <activity android:name=".MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity android:name=".MenuMain" />
+
         <activity
             android:name=".LocationActivity"
             android:label="Location">
@@ -39,19 +54,13 @@
         <intent-filter>
             <action android:name="android.intent.action.MAIN" />
             <action android:name="android.intent.action.VIEW" />
-            <category android:name="android.intent.category.LAUNCHER" />
+
 
         </intent-filter>
         </activity>
 
 
-        <activity android:name=".Registration" />
-        <activity android:name=".MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-            </intent-filter>
-        </activity>
 
     </application>
 

@@ -13,7 +13,7 @@
     <string name="signup_phone">Phone Number</string>
     <string name="background_for_login">background for login</string>
     <string name="register_close_button">X</string>
-    <string name="price_total">"Total: "</string>
+    <string name="price_total">Total: $$$</string>
     <string name="visa">Visa</string>
     <string name="mastercard">MasterCard</string>
     <string name="american_express">American Express</string>

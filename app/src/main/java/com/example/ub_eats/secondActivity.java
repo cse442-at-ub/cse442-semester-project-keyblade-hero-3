@@ -41,7 +41,7 @@ public class secondActivity extends AppCompatActivity {
     private void openActivity() {
 
         // change OrderConfirmation
-        Intent intent=new Intent(this, OrderConfirmation.class);
+        Intent intent=new Intent(this, PaymentActivity.class);
         startActivity(intent);
 
 
