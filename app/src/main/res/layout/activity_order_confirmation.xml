@@ -10,9 +10,9 @@
         android:id="@+id/imageView2"
         android:layout_width="413dp"
         android:layout_height="731dp"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/background"
-        tools:layout_editor_absoluteX="-1dp" />
+        app:srcCompat="@drawable/background" />
 
     <TextView
         android:id="@+id/textView8"
