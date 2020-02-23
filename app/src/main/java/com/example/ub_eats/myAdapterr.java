@@ -1,4 +1,4 @@
-package com.example.myapplication;
+package com.example.ub_eats;
 
 import android.content.Context;
 import android.view.LayoutInflater;

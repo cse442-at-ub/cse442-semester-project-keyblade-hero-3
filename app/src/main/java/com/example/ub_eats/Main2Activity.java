@@ -1,4 +1,4 @@
-package com.example.myapplication;
+package com.example.ub_eats;
 
 import android.os.Bundle;
 

@@ -1,4 +1,4 @@
-package com.example.myapplication;
+package com.example.ub_eats;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -7,12 +7,13 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
+
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.myapplication.dummy.DummyContent;
-import com.example.myapplication.dummy.DummyContent.DummyItem;
+import com.example.ub_eats.dummy.DummyContent;
+import com.example.ub_eats.dummy.DummyContent.DummyItem;
 
 /**
  * A fragment representing a list of Items.

@@ -1,4 +1,4 @@
-package com.example.myapplication;
+package com.example.ub_eats;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -40,6 +40,7 @@ public class secondActivity extends AppCompatActivity {
 
     private void openActivity() {
 
+        // change OrderConfirmation
         Intent intent=new Intent(this, OrderConfirmation.class);
         startActivity(intent);
 

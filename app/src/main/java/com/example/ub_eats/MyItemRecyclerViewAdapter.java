@@ -1,4 +1,4 @@
-package com.example.myapplication;
+package com.example.ub_eats;
 
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -7,8 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.example.myapplication.ItemFragment.OnListFragmentInteractionListener;
-import com.example.myapplication.dummy.DummyContent.DummyItem;
+import com.example.ub_eats.ItemFragment.OnListFragmentInteractionListener;
+import com.example.ub_eats.dummy.DummyContent.DummyItem;
 
 import java.util.List;
 

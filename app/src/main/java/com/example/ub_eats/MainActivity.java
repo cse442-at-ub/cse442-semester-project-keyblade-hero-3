@@ -23,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onClickMain(View view){
-        Intent intent = new Intent(this, MainScreen.class);
+        Intent intent = new Intent(this, MenuMain.class);
         startActivity(intent);
     }
 }
