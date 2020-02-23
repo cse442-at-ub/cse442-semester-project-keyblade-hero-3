@@ -8,13 +8,15 @@
 
     <ImageView
         android:id="@+id/login_background"
-        android:layout_width="2.7in"
-        android:layout_height="match_parent"
+        android:layout_width="413dp"
+        android:layout_height="731dp"
         android:contentDescription="@string/background_for_login"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/user_name_field"
+        app:layout_constraintVertical_bias="1.0"
         app:srcCompat="@drawable/background" />
 
     <Button
