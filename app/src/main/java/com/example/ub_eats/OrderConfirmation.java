@@ -28,7 +28,7 @@ public class OrderConfirmation extends AppCompatActivity {
 
     private void openActivity() {
 
-        Intent intent=new Intent(this, MenuMain.class);
+        Intent intent=new Intent(this, LocationActivity.class);
         startActivity(intent);
 
 

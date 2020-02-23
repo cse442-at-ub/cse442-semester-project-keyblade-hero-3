@@ -1,6 +1,7 @@
 package com.example.ub_eats;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
@@ -137,5 +138,10 @@ public class LocationActivity extends FragmentActivity implements OnMapReadyCall
                 }
             }
         }
+    }
+
+    public void onClick(View view) {
+        Intent intent = new Intent(this, MenuMain.class);
+        startActivity(intent);
     }
 }

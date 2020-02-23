@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name1">UB_Eats</string>
+    <string name="app_name">UB Eats</string>
     <string name="userName">Username</string>
     <string name="password">Enter Password</string>
     <string name="hintName">Please Enter your Username</string>
@@ -21,11 +21,6 @@
     <string name="confirm">Confirm</string>
     <string name="please_enter_credit_card_information">Please Enter Credit Card Information</string>
     <string name="title_activity_location">Map</string>
-    
-    
-    
-    
-    <string name="app_name">My Application</string>
 
     <string-array name="pro_lang">
         <item>Au Bon Pain</item>

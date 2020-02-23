@@ -8,7 +8,7 @@
 
     <ImageView
         android:id="@+id/login_background"
-        android:layout_width="match_parent"
+        android:layout_width="2.7in"
         android:layout_height="match_parent"
         android:contentDescription="@string/background_for_login"
         app:layout_constraintBottom_toBottomOf="parent"
