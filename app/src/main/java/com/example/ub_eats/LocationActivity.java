@@ -62,7 +62,7 @@ public class LocationActivity extends FragmentActivity implements OnMapReadyCall
         mapFragment.getMapAsync(this);
 
 
-
+        Log.d(TAG, "Came here baby");
         locationProviderClient = LocationServices.getFusedLocationProviderClient(this);
     }
 
@@ -81,6 +81,8 @@ public class LocationActivity extends FragmentActivity implements OnMapReadyCall
         getLastKnownLocation(googleMap);
     }
 
+
+    
     private void getLastKnownLocation(final GoogleMap gMap){
         //If we dont have permission request it
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
@@ -108,6 +110,9 @@ public class LocationActivity extends FragmentActivity implements OnMapReadyCall
                         LatLng sydney = new LatLng(location.getLatitude(), location.getLongitude());
                         mMap.addMarker(new MarkerOptions().position(sydney).title("Marker placed"));
                         mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(location.getLatitude(), location.getLongitude()), 20.0f));
+                    }
+                    else{
+                        Log.d(TAG, "Location was null");
                     }
                 }
             })
