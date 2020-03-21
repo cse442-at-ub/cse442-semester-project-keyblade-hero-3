@@ -4,9 +4,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.view.View;
-import android.widget.Button;
 import android.os.Bundle;
-import android.widget.ViewSwitcher;
+
+import com.example.ub_eats.Menu.MenuMain;
 
 public class MainActivity extends AppCompatActivity {
 

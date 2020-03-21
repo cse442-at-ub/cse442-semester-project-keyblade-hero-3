@@ -23,9 +23,9 @@
     <string name="title_activity_location">Map</string>
 
     <string-array name="pro_lang">
-        <item>Au Bon Pain</item>
-        <item>C3</item>
-        <item>Guac and Roll</item>
+        <item>Champa Sushi</item>
+        <item>Jamba Juice</item>
+        <item>Moes</item>
         <item>Hubies</item>
         <item>Sizzles</item>
         <item>Perks</item>
@@ -43,6 +43,17 @@
 
     </string-array>
 
+    <string-array name="Champs_description">
+        <item>Avocado, Vegetable, Eel</item>
+        <item>Eel, Seared Pepper Tuna</item>
+        <item>Tuna, Salmon, Shrimp, Nigiri Combo</item>
+        <item>Seaweek, Calamari, Kani</item>
+        <item>Bottled Water</item>
+        <item>Bowl of Rice, Miso Soup, Fish cake</item>
+        <item>This is random descriptio</item>
+
+    </string-array>
+
     <string-array name="menu_Item">
         <item>item 1</item>
         <item>item 2</item>
@@ -50,6 +61,25 @@
         <item>item 4</item>
         <item>item 5</item>
         <item>item 6</item>
+        <item>item 7</item>
+    </string-array>
+
+    <string-array name="Jamba_Item">
+        <item>Pasta</item>
+        <item>item 2</item>
+        <item>item 3</item>
+        <item>item 4</item>
+        <item>item 5</item>
+        <item>item 6</item>
+        <item>item 7</item>
+    </string-array>
+    <string-array name="ChampaSushi_Item">
+        <item>Sushi roll</item>
+        <item>Bowls</item>
+        <item>Nigiri</item>
+        <item>Salads</item>
+        <item>Drinks</item>
+        <item>Sides</item>
         <item>item 7</item>
     </string-array>
 

@@ -1,8 +1,10 @@
-package com.example.ub_eats;
+package com.example.ub_eats.Menu;
 
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.ub_eats.R;
 
 public class Main2Activity extends AppCompatActivity {
 

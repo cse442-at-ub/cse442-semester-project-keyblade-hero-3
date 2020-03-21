@@ -36,8 +36,8 @@
         <activity android:name=".Registration" />
         <activity android:name=".OrderConfirmation"/>
         <activity android:name=".MainScreen"/>
-        <activity android:name=".Main2Activity"/>
-        <activity android:name=".secondActivity"/>
+        <activity android:name=".Menu.Main2Activity"/>
+        <activity android:name=".Menu.secondActivity"/>
         <activity android:name=".PaymentActivity"/>
         <activity android:name=".MainActivity">
             <intent-filter>
@@ -46,7 +46,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".MenuMain" />
+        <activity android:name=".Menu.MenuMain" />
 
         <activity
             android:name=".LocationActivity"

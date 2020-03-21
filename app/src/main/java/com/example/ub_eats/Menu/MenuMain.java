@@ -1,4 +1,4 @@
-package com.example.ub_eats;
+package com.example.ub_eats.Menu;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,13 +8,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class secondActivity extends AppCompatActivity {
+import com.example.ub_eats.R;
+
+public class MenuMain extends AppCompatActivity {
     RecyclerView recyclerView;
 
     String s1[], s2[];
-    int images[]={R.drawable.pasta, R.drawable.pizza,
-            R.drawable.wings, R.drawable.fries, R.drawable.burger,
-            R.drawable.cheesecakes, R.drawable.icecream};
+    int images[]={R.drawable.champa_sush, R.drawable.jamba,
+    R.drawable.moes_at_putnams, R.drawable.hubies, R.drawable.sizzles,
+    R.drawable.perks, R.drawable.the_elli};
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,10 +24,10 @@ public class secondActivity extends AppCompatActivity {
 
         recyclerView=findViewById(R.id.recyclerView);
 
-        s1=getResources().getStringArray(R.array.menu_Item);
-        s2=getResources().getStringArray(R.array.menu_description);
+        s1=getResources().getStringArray(R.array.pro_lang);
+        s2=getResources().getStringArray(R.array.description);
 
-        myAdapterr myAdapter=new myAdapterr(this, s1,s2,images);
+        MyAdapter myAdapter=new MyAdapter(this, s1,s2,images);
         recyclerView.setAdapter(myAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
@@ -34,15 +36,14 @@ public class secondActivity extends AppCompatActivity {
     }
 
     public void onClick(View view) {
-        openActivity();
+       openActivity();
 
     }
 
     private void openActivity() {
 
-        // change OrderConfirmation
-        Intent intent=new Intent(this, PaymentActivity.class);
-        startActivity(intent);
+            Intent intent=new Intent(this, secondActivity.class);
+            startActivity(intent);
 
 
     }

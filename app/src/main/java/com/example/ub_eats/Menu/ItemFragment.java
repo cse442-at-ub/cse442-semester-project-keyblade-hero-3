@@ -1,4 +1,4 @@
-package com.example.ub_eats;
+package com.example.ub_eats.Menu;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.ub_eats.R;
 import com.example.ub_eats.dummy.DummyContent;
 import com.example.ub_eats.dummy.DummyContent.DummyItem;
 
