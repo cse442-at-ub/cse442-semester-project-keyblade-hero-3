@@ -2,6 +2,7 @@ package com.example.ub_eats.Menu;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -60,8 +61,6 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
                 String Pos=String.valueOf(position);
                 intent.putExtra(EXTRA_MESSAGE, Pos);
                 v.getContext().startActivity(intent);
-
-
             }
         });
 

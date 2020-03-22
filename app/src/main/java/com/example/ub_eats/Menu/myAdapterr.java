@@ -63,6 +63,10 @@ public class myAdapterr extends RecyclerView.Adapter<myAdapterr.MyViewHolderr> {
             mytext2=itemView.findViewById(R.id.myText2);
             myImage=itemView.findViewById(R.id.myImageView);
             bt=itemView.findViewById(R.id.button);
+
+            //Image not needed for now, make it invisible
+            myImage.setVisibility(View.GONE);
+
         }
     }
 }
