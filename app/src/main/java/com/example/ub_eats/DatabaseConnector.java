@@ -33,18 +33,21 @@ public class DatabaseConnector {
     }
 
 
-    public String pushOrder(String order_num, String u_id, String d_id, String stat) {
-
+    public String pushOrder(String order_num, String u_id, String d_id, String stat, String price, String items) {
+        AsyncDataPush push = new AsyncDataPush();
         try {
-            Statement stmt = con.createStatement();
-            int result = stmt.executeUpdate("INSERT INTO Orders(order_number,user_id,deliverer_id,status)" +
-                    "VALUES (" + order_num + "," + u_id + "," + d_id + "," + stat + ")");
-            con.close();
-            return Integer.toString(result) + " records effected";
-        } catch (SQLException e) {
+            Integer result = push.execute(database_name,order_num, u_id, d_id, stat, price, items).get();
+            System.out.println(result);
+            return "yuh";
+        } catch (ExecutionException e) {
             e.printStackTrace();
-            return "Error";
+            return "Push failed - did not execute";
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+            return "Push failed - Interupted";
         }
+
+
     }
 
     public List<ArrayList<String>> get_dining_menu(String dining_location_name) {
@@ -69,7 +72,37 @@ public class DatabaseConnector {
         return all_items_pulled;
     }
 
+    static private class AsyncDataPush extends AsyncTask<String, Void, Integer>{
+        Connection connection;
 
+        @Override
+        protected Integer doInBackground(String... strings) {
+
+            try {
+                connection = DriverManager.getConnection(
+                        "jdbc:mysql://tethys.cse.buffalo.edu:3306/" + strings[0], "chimaobi", "50179050");
+                Statement stmt = connection.createStatement();
+                String order_num = strings[1];
+                String u_id = strings[2];
+                String d_id = strings[3];
+                String stat = strings[4];
+                String price = strings[5];
+                String items = strings[6];
+
+                System.out.println("Total price: " + price);
+                System.out.println("Items: " + items);
+
+                int result = stmt.executeUpdate("INSERT INTO Orders(order_number,user_id,deliverer_id,status,price,items)" +
+                        "VALUES (" + order_num + "," + u_id + "," + d_id + "," + "'" + stat + "'" + "," + price + "," + "'" + items + "'" + ")");
+                connection.close();
+                return result;
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            return 300;
+        }
+    }
     static private class AsyncDataPull extends AsyncTask<String, Void, List<ArrayList<String>>> {
         ResultSet rs;
         Connection connection;
@@ -83,12 +116,8 @@ public class DatabaseConnector {
             String db_name = strings[0];
             String table_name = strings[1];
             try {
-                Log.d("Checkpoint 1", "Reached Here");
-
                 connection = DriverManager.getConnection(
                         "jdbc:mysql://tethys.cse.buffalo.edu:3306/" + db_name, "chimaobi", "50179050");
-                Log.d("Checkpoint 2", "Reached Here");
-
                 Statement stmt = connection.createStatement();
                 rs = stmt.executeQuery("select * from " + table_name);
 

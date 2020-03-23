@@ -28,6 +28,7 @@ import java.util.*;
 
 public class cart extends AppCompatActivity {
     DatabaseHelper myDB;
+
     /* RecyclerView recyclerView;
 
      String s1[], s2[];
@@ -118,6 +119,9 @@ public class cart extends AppCompatActivity {
             }
         }
 
+        itemL = itemss;
+        priceL = pricess;
+
         s1 = itemss.toArray(new String[itemL.size()]);
         s2 = pricess.toArray(new String[priceL.size()]);
 
@@ -134,7 +138,19 @@ public class cart extends AppCompatActivity {
     }
 
     public void onClick(View view) {
+        //Here we send an intent with the data being a List[prices, item_1_name, item_2_name, ...]
+        float price = 0;
+        ArrayList<String> total_and_items = new ArrayList<String>();
+        for(int i = 0; i < priceL.size(); i++){
+            price += Float.valueOf(priceL.get(i));
+            total_and_items.add(itemL.get(i));
+        }
+        total_and_items.add(String.valueOf(price));
+
+
         Intent intent = new Intent(this, PaymentActivity.class);
+        intent.putStringArrayListExtra("order", total_and_items);
+
         startActivity(intent);
         // finish();
 
@@ -142,11 +158,6 @@ public class cart extends AppCompatActivity {
 
     public void addData(String item, String price) {
         boolean insertData = myDB.addData(item, price);
-        if (insertData == true) {
-
-        } else {
-
-        }
 
     }
 }
