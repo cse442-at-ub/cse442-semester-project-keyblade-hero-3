@@ -32,6 +32,10 @@
         <item>The Elli</item>
     </string-array>
 
+    <string name="price">
+        Price:
+    </string>
+
     <string-array name="description">
         <item>This is random descriptio</item>
         <item>This is random descriptio</item>
@@ -42,15 +46,14 @@
         <item>This is random descriptio</item>
 
     </string-array>
-
     <string-array name="Champs_description">
-        <item>Avocado, Vegetable, Eel</item>
-        <item>Eel, Seared Pepper Tuna</item>
-        <item>Tuna, Salmon, Shrimp, Nigiri Combo</item>
-        <item>Seaweek, Calamari, Kani</item>
-        <item>Bottled Water</item>
-        <item>Bowl of Rice, Miso Soup, Fish cake</item>
-        <item>This is random descriptio</item>
+        <item>Price: </item>
+        <item>Price: </item>
+        <item>Price: </item>
+        <item>Price: </item>
+        <item>Price: </item>
+        <item>Price: </item>
+        <item>Price: </item>
 
     </string-array>
 
@@ -81,6 +84,15 @@
         <item>Drinks</item>
         <item>Sides</item>
         <item>item 7</item>
+    </string-array>
+    <string-array name="ChampaSushi_price">
+        <item>5.89</item>
+        <item>6.99</item>
+        <item>7.89</item>
+        <item>7.88</item>
+        <item>6.89</item>
+        <item>7.99</item>
+        <item>7.69</item>
     </string-array>
 
     <string-array name="menu_description">
@@ -183,6 +195,6 @@
         "when a user tries to pick up one of cards.\n\n"
     </string>
     <string name="action_settings">Settings</string>
-    
-    
+
+
 </resources>
