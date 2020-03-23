@@ -21,8 +21,6 @@ public class DatabaseConnector {
     static private List<ArrayList<String>> all_items_pulled;
 
     public DatabaseConnector() {
-        Log.d("Checkpoint 2", "Reached Here");
-
         try {
             Class.forName("com.mysql.jdbc.Driver");
             //AsyncDataPull pull = new AsyncDataPull();
@@ -53,12 +51,6 @@ public class DatabaseConnector {
         try {
             q = pull.execute(database_name, dining_location_name).get();
             all_items_pulled = q;
-            Log.d("Size", Integer.toString(all_items_pulled.size()));
-
-            for(int i = 0; i < all_items_pulled.size(); i++){
-                Log.e("Names", all_items_pulled.get(i).get(0));
-
-            }
 
         } catch (ExecutionException e) {
             e.printStackTrace();
@@ -83,12 +75,8 @@ public class DatabaseConnector {
             String db_name = strings[0];
             String table_name = strings[1];
             try {
-                Log.d("Checkpoint 1", "Reached Here");
-
                 connection = DriverManager.getConnection(
                         "jdbc:mysql://tethys.cse.buffalo.edu:3306/" + db_name, "chimaobi", "50179050");
-                Log.d("Checkpoint 2", "Reached Here");
-
                 Statement stmt = connection.createStatement();
                 rs = stmt.executeQuery("select * from " + table_name);
 
