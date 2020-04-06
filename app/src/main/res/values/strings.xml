@@ -23,14 +23,18 @@
     <string name="title_activity_location">Map</string>
 
     <string-array name="pro_lang">
-        <item>Au Bon Pain</item>
-        <item>C3</item>
-        <item>Guac and Roll</item>
+        <item>Champa Sushi</item>
+        <item>Jamba Juice</item>
+        <item>Moes</item>
         <item>Hubies</item>
         <item>Sizzles</item>
         <item>Perks</item>
         <item>The Elli</item>
     </string-array>
+
+    <string name="price">
+        Price:
+    </string>
 
     <string-array name="description">
         <item>This is random descriptio</item>
@@ -42,6 +46,16 @@
         <item>This is random descriptio</item>
 
     </string-array>
+    <string-array name="Champs_description">
+        <item>Price: </item>
+        <item>Price: </item>
+        <item>Price: </item>
+        <item>Price: </item>
+        <item>Price: </item>
+        <item>Price: </item>
+        <item>Price: </item>
+
+    </string-array>
 
     <string-array name="menu_Item">
         <item>item 1</item>
@@ -51,6 +65,34 @@
         <item>item 5</item>
         <item>item 6</item>
         <item>item 7</item>
+    </string-array>
+
+    <string-array name="Jamba_Item">
+        <item>Pasta</item>
+        <item>item 2</item>
+        <item>item 3</item>
+        <item>item 4</item>
+        <item>item 5</item>
+        <item>item 6</item>
+        <item>item 7</item>
+    </string-array>
+    <string-array name="ChampaSushi_Item">
+        <item>Sushi roll</item>
+        <item>Bowls</item>
+        <item>Nigiri</item>
+        <item>Salads</item>
+        <item>Drinks</item>
+        <item>Sides</item>
+        <item>item 7</item>
+    </string-array>
+    <string-array name="ChampaSushi_price">
+        <item>5.89</item>
+        <item>6.99</item>
+        <item>7.89</item>
+        <item>7.88</item>
+        <item>6.89</item>
+        <item>7.99</item>
+        <item>7.69</item>
     </string-array>
 
     <string-array name="menu_description">
@@ -153,6 +195,6 @@
         "when a user tries to pick up one of cards.\n\n"
     </string>
     <string name="action_settings">Settings</string>
-    
-    
+
+
 </resources>
