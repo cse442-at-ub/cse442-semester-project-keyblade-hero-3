@@ -1,8 +1,8 @@
 <?php
-    if (!isset($_SESSION)) 
-    {
-     session_start();
-    }
+    // if (!isset($_SESSION)) 
+    // {
+    //  session_start();
+    // }
 
     require 'database_connect.php';
     date_default_timezone_set('America/New_York');
@@ -11,57 +11,78 @@
     header('Access-Control-Allow-Origin: *');
     header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
     // pull the input, which should be in the form of a JSON object
+    
+    $conn = null;
+    $conn = connect();
+    $stmt = $conn->prepare("INSERT INTO Orders (user_id, deliverer_id, status, price, items)
+     VALUES (:user_id, :deliverer_id, :status, :price, :items)");
+    $stmt->bind_param(':user_id', $user_id);
+    $stmt->bind_param(':deliverer_id', $del_id);
+    $stmt->bind_param(':status', $status);
+    $stmt->bind_param(':price', $price);
+    $stmt->bind_param(':items', $items);
+    
+
+    $user_id = $_POST['user_id'];
+    $del_id = $_POST['deliverer_id'];
+    $status = $_POST['status'];
+    $price = $_POST['price'];
+    $items = $_POST['items'];
+    $stmt->execute();
+    print_r($conn->lastInsertID());
+    $conn = null;
 
     //echo json_encode($_POST);
-    $json_params = file_get_contents('php://input');
-    $decoded_params = json_decode($json_params, TRUE);
-    $conn = null;
-    if(is_array($decoded_params) && array_key_exists('post_id', $decoded_params)){
-        $post_id = $decoded_params['post_id'];
-    }
-    if(is_array($decoded_params) && array_key_exists('content', $decoded_params)){
-        $post_id = $decoded_params['content'];
-    }
-    //$_SESSION['user_id'] = 99999;
-    if(isset($_POST['action']) && !empty($_POST['action'])) {
-        $action = $_POST['action'];
-    if(isset($_POST['postid']) && !empty($_POST['postid'])) {
-       $post_id = $_POST['postid'];
-    }
-    // if(isset($_POST['tag']) && !empty($_POST['tag'])) {
-    //    $tag = $_POST['tag'];
-    // }
-   $user_id=$_SESSION['u_id'];
-            switch($action) {
-                case 'on-load': on_load_order(); break;
-                case 'update_order': update_order(); break;
-                case 'verify_order': verify_order(); break;
-                case 'create_order': create_order(); break;
-                default: echo "No such function";
-            }
+//     $json_params = file_get_contents('php://input');
+//     $decoded_params = json_decode($json_params, TRUE);
+//     $conn = null;
+//     if(is_array($decoded_params) && array_key_exists('post_id', $decoded_params)){
+//         $post_id = $decoded_params['post_id'];
+//     }
+//     if(is_array($decoded_params) && array_key_exists('content', $decoded_params)){
+//         $post_id = $decoded_params['content'];
+//     }
+//     //$_SESSION['user_id'] = 99999;
+//     if(isset($_POST['action']) && !empty($_POST['action'])) {
+//         $action = $_POST['action'];
+//     if(isset($_POST['postid']) && !empty($_POST['postid'])) {
+//        $post_id = $_POST['postid'];
+//     }
+//     // if(isset($_POST['tag']) && !empty($_POST['tag'])) {
+//     //    $tag = $_POST['tag'];
+//     // }
+//    $user_id=$_SESSION['u_id'];
+//             switch($action) {
+//                 case 'on-load': on_load_order(); break;
+//                 case 'update_order': update_order(); break;
+//                 case 'verify_order': verify_order(); break;
+//                 case 'create_order': create_order(); break;
+//                 default: echo "No such function";
+//             }
         
-    }
+//     }
 
-    function on_load_order(){
-        $conn = connect();
+//     function on_load_order(){
+//         $conn = connect();
 
-        //prepare statement
+//         //prepare statement
 
-        //collect data
-    }
+//         //collect data
+//     }
 
-    function update_order(){
-        $conn = connect();
+//     function update_order(){
+//         $conn = connect();
 
-        //prepare statement
+//         //prepare statement
 
-        //update orders
-    }
+//         //update orders
+//     }
 
-    function verify_order($order_number){
-        $conn = connect();
-    }
+//     function verify_order($order_number){
+//         $conn = connect();
+//     }
 
-    function create_order(){
-        $conn = connect();
-    }
+//     function create_order(){
+//         $conn = connect();
+//     }
+?>
