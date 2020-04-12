@@ -66,7 +66,7 @@ public class secondActivity extends AppCompatActivity {
 
         int messInt=Integer.valueOf(message);
         if(messInt==0){
-            List<ArrayList<String>> d = db.get_dining_menu("Champa_Sushi");
+            List<ArrayList<String>> d = db.httpPullMenu("Champga Sushi");
             if(d != null){
                 String[] names = new String[d.get(0).size()];
                 String[] prices = new String[d.get(1).size()];

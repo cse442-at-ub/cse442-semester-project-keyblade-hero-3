@@ -3,6 +3,13 @@ package com.example.ub_eats;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.ProtocolException;
+import java.net.URL;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -55,6 +62,28 @@ public class DatabaseConnector {
         AsyncDataPull pull = new AsyncDataPull();
         try {
             q = pull.execute(database_name, dining_location_name).get();
+            all_items_pulled = q;
+            Log.d("Size", Integer.toString(all_items_pulled.size()));
+
+            for(int i = 0; i < all_items_pulled.size(); i++){
+                Log.e("Names", all_items_pulled.get(i).get(0));
+
+            }
+
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        return all_items_pulled;
+    }
+
+    public List<ArrayList<String>> httpPullMenu(String dining_location){
+        List<ArrayList<String>> q;
+        AsyncHttpDataPull pull = new AsyncHttpDataPull();
+        try {
+            q = pull.execute(database_name, dining_location).get();
             all_items_pulled = q;
             Log.d("Size", Integer.toString(all_items_pulled.size()));
 
@@ -143,4 +172,59 @@ public class DatabaseConnector {
         }
 
     }
-}
+
+    static private class AsyncHttpDataPull extends AsyncTask<String, Void, List<ArrayList<String>>>{
+        @Override
+        protected List<ArrayList<String>> doInBackground(String... strings) {
+            String url = "http://www-student.cse.buffalo.edu/CSE442-542/2020-Spring/cse-442q/web-api/rest.php";
+            URL u = null;
+            try {
+                u = new URL(url);
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            }
+            try {
+                HttpURLConnection con = (HttpURLConnection)u.openConnection();
+                con.setRequestMethod("GET");
+                BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream()));
+                StringBuffer sb = new StringBuffer();
+                String line;
+                ArrayList<String> names = new ArrayList<>();
+                ArrayList<String> prices = new ArrayList<>();
+
+                while((line = br.readLine()) != null){
+                    sb.append(line);
+                    if (line.contains("item_nm")){
+                        names.add(line.split("=>")[1]);
+                    }
+
+                    if(line.contains("price")){
+                        prices.add(line.split("=>")[1]);
+                    }
+                }
+                br.close();
+                for(int i = 0; i < names.size(); i++){
+                    System.out.println(names.get(i));
+                    System.out.println(prices.get(i));
+
+                }
+
+                List<ArrayList<String>> menu = new ArrayList<>();
+                menu.add(names);
+                menu.add(prices);
+                return menu;
+                //Return menu. That is the list we will use to fill up the recyclerview
+
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(List<ArrayList<String>> arrayLists) {
+            all_items_pulled = arrayLists;
+        }
+        }
+    }
