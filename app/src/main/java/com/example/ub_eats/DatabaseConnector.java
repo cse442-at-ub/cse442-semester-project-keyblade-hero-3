@@ -6,10 +6,12 @@ import android.util.Log;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -19,8 +21,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
-import javax.xml.transform.Result;
-
 public class DatabaseConnector {
     //executeQuery() reads, executeUpdate() writes
     private String database_name = "cse442_542_2020_spring_teamq_db";
@@ -28,15 +28,14 @@ public class DatabaseConnector {
     static private List<ArrayList<String>> all_items_pulled;
 
     public DatabaseConnector() {
-        Log.d("Checkpoint 2", "Reached Here");
 
-        try {
-            Class.forName("com.mysql.jdbc.Driver");
-            //AsyncDataPull pull = new AsyncDataPull();
-            //pull.execute(database_name, "Champa_Sushi");
-        } catch (Exception e) {
-            System.out.println(e.toString());
-        }
+//        try {
+//            Class.forName("com.mysql.jdbc.Driver");
+//            //AsyncDataPull pull = new AsyncDataPull();
+//            //pull.execute(database_name, "Champa_Sushi");
+//        } catch (Exception e) {
+//            System.out.println(e.toString());
+//        }
     }
 
 
@@ -100,6 +99,20 @@ public class DatabaseConnector {
 
         return all_items_pulled;
     }
+
+    public String httpPushOrder(String u_id, String d_id, String status, String price, String items){
+        AsyncHttpDataPush push = new AsyncHttpDataPush();
+        try{
+            String result = push.execute(u_id, d_id, status, price, items).get();
+            return result;
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+        return("Pushing order failed ");
+    }
+
 
     static private class AsyncDataPush extends AsyncTask<String, Void, Integer>{
         Connection connection;
@@ -227,4 +240,66 @@ public class DatabaseConnector {
             all_items_pulled = arrayLists;
         }
         }
+    static private class AsyncHttpDataPush extends AsyncTask<String, Void, String>{
+
+        @Override
+        protected String doInBackground(String... strings) {
+            String url = "http://www-student.cse.buffalo.edu/CSE442-542/2020-Spring/cse-442q/web-api/orders.php/";
+            URL u;
+            try {
+                u = new URL(url);
+                HttpURLConnection con = (HttpURLConnection)u.openConnection();
+                con.setRequestMethod("POST");
+                con.setDoOutput(true);
+                String u_id = "\"" + strings[0] + "\"";
+                String d_id = "\"" + strings[1] + "\"";
+                String status = "\"" + strings[2] + "\"";
+                String price = "\"" + strings[3] + "\"";
+                String items = "\"" + strings[4] + "\"";
+
+                String output = String.format("{\"user_id\":%s,\"deliverer_id\":%s,\"status\":%s,\"price\":%s,\"items\":%s}",u_id, d_id, status,price,items);
+                System.out.println(output);
+
+
+                byte[] out = output.getBytes("UTF-8");
+                int length = out.length;
+
+                con.setFixedLengthStreamingMode(length);
+                con.setRequestProperty("Content-Type", "application/json");
+                con.connect();
+                OutputStreamWriter os =  new OutputStreamWriter (con.getOutputStream());
+                os.write(output);
+                os.flush();
+                os.close();
+
+
+
+                int responseCode = con.getResponseCode();
+                System.out.println(responseCode);
+                if (responseCode == HttpURLConnection.HTTP_OK) { //success
+
+                    BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream()));
+                    StringBuffer sb = new StringBuffer();
+                    String line;
+
+                    while((line = br.readLine()) != null){
+                        sb.append(line); }
+                    br.close();
+                    con.disconnect();
+                    return (sb.toString());
+                } else {
+                    return("POST request failed");
+                }
+            } catch (ProtocolException e) {
+                e.printStackTrace();
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return("POST request failed");
+        }
+    }
+
+
     }
