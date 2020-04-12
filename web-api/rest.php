@@ -8,13 +8,17 @@
 
     $conn = null;
     $conn = connect();
-    $sql = "SELECT * FROM Champa_Sushi, Jamba_Juice";
+    $sql = "SELECT * FROM Champa_Sushi";
     $champa_menu = $conn->query($sql);
     $champa_menu = $champa_menu->fetchall();
-    $sql2 = "SELECT * FROM Jamba_Juice";
-    $jamba_menu = $conn->query($sql2);
-    $jamba_menu = $jamba_menu->fetchall();
     print_r($champa_menu);
-    print_r($jamba_menu);
+    //$conn2 = null;
+    //$conn2 = connect();
+    //$sql2 = "SELECT * FROM Jamba_Juice";
+    //$jamba_menu = $conn->query($sql2);
+    //$jamba_menu = $jamba_menu->fetchall();
+    //print_r($jamba_menu);
+    //$conn2 = null;
     $conn = null;
+
 ?>

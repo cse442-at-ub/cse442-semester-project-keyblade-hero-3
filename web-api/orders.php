@@ -1,38 +1,57 @@
 <?php
-    // if (!isset($_SESSION)) 
-    // {
-    //  session_start();
-    // }
-
-    require 'database_connect.php';
-    date_default_timezone_set('America/New_York');
-    // the response will be a JSON object
-    header('Content-Type: application/json');
-    header('Access-Control-Allow-Origin: *');
-    header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
-    // pull the input, which should be in the form of a JSON object
     
-    $conn = null;
-    $conn = connect();
-    $stmt = $conn->prepare("INSERT INTO Orders (user_id, deliverer_id, status, price, items)
-     VALUES (:user_id, :deliverer_id, :status, :price, :items)");
-    $stmt->bind_param(':user_id', $user_id);
-    $stmt->bind_param(':deliverer_id', $del_id);
-    $stmt->bind_param(':status', $status);
-    $stmt->bind_param(':price', $price);
-    $stmt->bind_param(':items', $items);
-    
+    if (!isset($_SESSION)) 
+    {
+     session_start();
+    }
 
-    $user_id = $_POST['user_id'];
-    $del_id = $_POST['deliverer_id'];
-    $status = $_POST['status'];
-    $price = $_POST['price'];
-    $items = $_POST['items'];
-    $stmt->execute();
-    print_r($conn->lastInsertID());
-    $conn = null;
+   require 'database_connect.php';
+   date_default_timezone_set('America/New_York');
+   // the response will be a JSON object
+   header('Content-Type: application/json');
+   header('Access-Control-Allow-Origin: *');
+   header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
+   // pull the input, which should be in the form of a JSON object
+   $json_params = file_get_contents('php://input');
+   $decoded_params = json_decode($json_params, TRUE);
+   //print_r($decoded_params);
+   $conn = null;
+   $conn = connect();
+   $user_id = null;
+   $del_id = null;
+   $status = null;
+   $price = null;
+   $items = null;
+   $sql = "INSERT INTO Orders (user_id, deliverer_id, status, price, items) VALUES (:user_id, :deliverer_id, :status, :price, :items)";
+   $stmt = $conn->prepare($sql);
+   $stmt->bindParam(':user_id', $user_id);
+   $stmt->bindParam(':deliverer_id', $del_id);
+   $stmt->bindParam(':status', $status);
+   $stmt->bindParam(':price', $price);
+   $stmt->bindParam(':items', $items);
+   
+   //$user_id = 9999;
+   //$del_id = 9999;
+   //$status = "pending";
+   //$price = 9999.99;
+   //$items = "dummies";
 
-    //echo json_encode($_POST);
+
+   $user_id = $decoded_params[user_id];
+   //print_r($user_id);
+   $del_id = $decoded_params[deliverer_id];
+   //print_r($del_id);
+   $status = $decoded_params[status];
+   //print_r($status);
+   $price = $decoded_params[price];
+   //print_r($price);
+   $items = $decoded_params[items];
+   //print_r($items);
+   $stmt->execute();
+   print_r($conn->lastInsertID());
+   $conn = null;
+
+   //echo json_encode($_POST);
 //     $json_params = file_get_contents('php://input');
 //     $decoded_params = json_decode($json_params, TRUE);
 //     $conn = null;
@@ -59,7 +78,7 @@
 //                 case 'create_order': create_order(); break;
 //                 default: echo "No such function";
 //             }
-        
+       
 //     }
 
 //     function on_load_order(){
@@ -85,4 +104,5 @@
 //     function create_order(){
 //         $conn = connect();
 //     }
+
 ?>
