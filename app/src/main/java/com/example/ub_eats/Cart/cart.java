@@ -87,7 +87,7 @@ public class cart extends AppCompatActivity {
 
 
         addData(itemName, price);
-/*
+
 
         s3 = getResources().getString(R.string.price);
 
@@ -119,6 +119,8 @@ public class cart extends AppCompatActivity {
         System.out.println("----------------");*/
 
         cartAdapter cartAdapter = new cartAdapter(this, s1, s2, s3);
+
+
 
         recyclerView.setAdapter(cartAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -155,7 +157,9 @@ public class cart extends AppCompatActivity {
             String quantity = myDB.quanRet(itemL.get(i));
             int quan = Integer.parseInt(quantity);
             price += (Float.valueOf(priceL.get(i))) * quan;
-            total_and_items.add(itemL.get(i));
+           // total_and_items.add(itemL.get(i));
+            total_and_items.add(quantity + "x " + itemL.get(i));
+
         }
         total_and_items.add(String.valueOf(price));
 

@@ -119,6 +119,7 @@ public class secondActivity extends AppCompatActivity {
 
          myAdapterr=new myAdapterr(this, s1,s2,s3);
 
+
        // int n=myAdapterr.data1.length;
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
