@@ -52,7 +52,6 @@ public class PaymentActivity extends AppCompatActivity {
 
                 final Random rdnum=new Random();
 
-                String order_number = Integer.toString(rdnum.nextInt(200));
                 String user_id = "0";
                 String deliverer_id = "1";
                 String status = "pending";
@@ -62,7 +61,7 @@ public class PaymentActivity extends AppCompatActivity {
 
 
                 db = new DatabaseConnector();
-                db.pushOrder(order_number, user_id, deliverer_id, status, price_to_display, items);
+                String order_number = db.httpPushOrder(user_id, deliverer_id, status, price_to_display, items);
 
                 Intent intent2 = new Intent(this, OrderConfirmation.class);
                 intent2.putExtra("order_number", order_number);

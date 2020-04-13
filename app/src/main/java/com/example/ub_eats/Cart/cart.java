@@ -6,12 +6,15 @@ import com.example.ub_eats.R;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
@@ -75,7 +78,6 @@ public class cart extends AppCompatActivity {
 
         String itemName;
         String price;
-        //   String s3;
         Bundle resultInt = getIntent().getExtras();
 
         itemName = resultInt.getString("item");
@@ -85,24 +87,10 @@ public class cart extends AppCompatActivity {
 
 
         addData(itemName, price);
-/*
 
-        itemL.add(itemName);
-        priceL.add(price);
-        System.out.println("----------------");
-        System.out.println(itemL.get(0));
-        System.out.println("----------------");*/
-
-        // String[] str=new String[itemL.size()];
-
-
-        // s1=getResources().getStringArray(R.array.ChampaSushi_Item);
-        // s2=getResources().getStringArray(R.array.ChampaSushi_price);
 
         s3 = getResources().getString(R.string.price);
-       /* System.out.println("----------------");
-        System.out.println(s2[0]);
-        System.out.println("----------------");*/
+
 
 
         ArrayList<String> itemss = new ArrayList<>();
@@ -125,25 +113,53 @@ public class cart extends AppCompatActivity {
         s1 = itemss.toArray(new String[itemL.size()]);
         s2 = pricess.toArray(new String[priceL.size()]);
 
-        System.out.println("----------------");
+       /* System.out.println("----------------");
         System.out.println(s1[0]);
         System.out.println(s2[0]);
-        System.out.println("----------------");
+        System.out.println("----------------");*/
 
         cartAdapter cartAdapter = new cartAdapter(this, s1, s2, s3);
+
+
 
         recyclerView.setAdapter(cartAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
     }
 
+
     public void onClick(View view) {
+        myDB = new DatabaseHelper(this);
+
+        ArrayList<String> itemss = new ArrayList<>();
+        ArrayList<String> pricess = new ArrayList<>();
+
+        Cursor data = myDB.getListContents();
+
+        if (data.getCount() == 0) {
+            //    Toast.makeText("The database was empty", Toast.LENGTH_LONG);
+        } else {
+            while (data.moveToNext()) {
+                itemss.add(data.getString(0));
+                pricess.add(data.getString(1));
+            }
+        }
+
+        itemL = itemss;
+        priceL = pricess;
+
+
+        //Fix with quantity
         //Here we send an intent with the data being a List[prices, item_1_name, item_2_name, ...]
         float price = 0;
         ArrayList<String> total_and_items = new ArrayList<String>();
-        for(int i = 0; i < priceL.size(); i++){
-            price += Float.valueOf(priceL.get(i));
-            total_and_items.add(itemL.get(i));
+        for (int i = 0; i < priceL.size(); i++) {
+            String quantity = myDB.quanRet(itemL.get(i));
+            int quan = Integer.parseInt(quantity);
+            price += (Float.valueOf(priceL.get(i))) * quan;
+           // total_and_items.add(itemL.get(i));
+            total_and_items.add(quantity + "x " + itemL.get(i));
+
         }
         total_and_items.add(String.valueOf(price));
 
@@ -161,3 +177,4 @@ public class cart extends AppCompatActivity {
 
     }
 }
+

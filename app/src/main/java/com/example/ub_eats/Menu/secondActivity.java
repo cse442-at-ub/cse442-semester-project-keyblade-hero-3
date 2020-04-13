@@ -2,10 +2,13 @@ package com.example.ub_eats.Menu;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -45,9 +48,8 @@ public class secondActivity extends AppCompatActivity {
     DatabaseConnector db;
 
     String s1[], s2[], s3[];
-    int images[]={R.drawable.pasta, R.drawable.pizza,
-            R.drawable.wings, R.drawable.fries, R.drawable.burger,
-            R.drawable.cheesecakes, R.drawable.icecream};
+    myAdapterr myAdapterr;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,7 +68,7 @@ public class secondActivity extends AppCompatActivity {
 
         int messInt=Integer.valueOf(message);
         if(messInt==0){
-            List<ArrayList<String>> d = db.get_dining_menu("Champa_Sushi");
+            List<ArrayList<String>> d = db.httpPullMenu("Champga Sushi");
             if(d != null){
                 String[] names = new String[d.get(0).size()];
                 String[] prices = new String[d.get(1).size()];
@@ -115,9 +117,10 @@ public class secondActivity extends AppCompatActivity {
         }
 
 
-        myAdapterr myAdapterr=new myAdapterr(this, s1,s2,s3,images);
+         myAdapterr=new myAdapterr(this, s1,s2,s3);
 
-        int n=myAdapterr.data1.length;
+
+       // int n=myAdapterr.data1.length;
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         recyclerView.setAdapter(myAdapterr);
@@ -139,4 +142,25 @@ public class secondActivity extends AppCompatActivity {
 
 
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_search, menu);
+        MenuItem item= menu.findItem(R.id.action_search);
+        SearchView searchView= (SearchView) item.getActionView();
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                myAdapterr.getFilter().filter(newText);
+                return false;
+            }
+        });
+        return super.onCreateOptionsMenu(menu);
+    }
+
 }
