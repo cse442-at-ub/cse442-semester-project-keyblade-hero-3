@@ -102,9 +102,9 @@ public class myAdapterr extends RecyclerView.Adapter<myAdapterr.MyViewHolderr> i
         @Override //background thread
         protected FilterResults performFiltering(CharSequence charSequence) {
 
-                        listFilteredName= new ArrayList<>();
-                         listFilteredPrice= new ArrayList<>();
-                         listFiltereds3=new ArrayList<>();
+            listFilteredName= new ArrayList<>();
+            listFilteredPrice= new ArrayList<>();
+            listFiltereds3=new ArrayList<>();
 
             //List<String> itemName = new ArrayList<String>(Arrays.asList(data1));
 
@@ -116,9 +116,12 @@ public class myAdapterr extends RecyclerView.Adapter<myAdapterr.MyViewHolderr> i
 
 
             }else{
-                System.out.println("-------------------");
+              /*  System.out.println("----------Data2 length---------");
                 System.out.println(data2.length);
-                for (int i=0; i<data2.length;i++){
+                System.out.println("----examplelistfullname length---------------");
+                System.out.println(exampleListFullName.size());*/
+
+                for (int i=0; i<exampleListFullName.size();i++){
 
                     if (exampleListFullName.get(i).toLowerCase().contains(charSequence.toString().toLowerCase())){
                         listFilteredName.add(exampleListFullName.get(i));
@@ -127,12 +130,12 @@ public class myAdapterr extends RecyclerView.Adapter<myAdapterr.MyViewHolderr> i
                     }
                 }
             }
-          //  data2=exampleListFullprice.toArray(new String[0]);
+            //  data2=exampleListFullprice.toArray(new String[0]);
             FilterResults filterResults=new FilterResults();
             filterResults.values=listFilteredName;
 
-            System.out.println("---List FIltered size----------------");
-            System.out.println(listFilteredName.size());
+           /* System.out.println("---List FIltered size----------------");
+            System.out.println(listFilteredName.size());*/
             return filterResults;
         }
 
@@ -146,7 +149,7 @@ public class myAdapterr extends RecyclerView.Adapter<myAdapterr.MyViewHolderr> i
             priceList.clear();
             s3List.clear();
 
-           // exampleListFull.clear(); //
+            // exampleListFull.clear(); //
             itemList.clear();
             itemList.addAll((Collection<? extends String>) filterResults.values);
             priceList.addAll(listFilteredPrice);
