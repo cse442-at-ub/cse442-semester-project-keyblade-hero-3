@@ -2,9 +2,10 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/UB_Eats.iml" filepath="$PROJECT_DIR$/UB_Eats.iml" />
+      <module fileurl="file://$PROJECT_DIR$/UB_Eats.iml" filepath="$PROJECT_DIR$/UB_Eats.iml" group="UB_Eats" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/mysql-connector-java-5.1.48/mysql-connector-java-5.1.48.iml" filepath="$PROJECT_DIR$/mysql-connector-java-5.1.48/mysql-connector-java-5.1.48.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/cse442-semester-project-keyblade-hero-3-app.iml" filepath="$PROJECT_DIR$/app/cse442-semester-project-keyblade-hero-3-app.iml" group="UB_Eats/app" />
+      <module fileurl="file://$PROJECT_DIR$/mysql-connector-java-5.1.48/mysql-connector-java-5.1.48.iml" filepath="$PROJECT_DIR$/mysql-connector-java-5.1.48/mysql-connector-java-5.1.48.iml" group="UB_Eats/mysql-connector-java-5.1.48" />
     </modules>
   </component>
 </project>
