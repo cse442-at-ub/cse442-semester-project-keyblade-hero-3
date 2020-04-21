@@ -29,11 +29,12 @@ public class myAdapterr extends RecyclerView.Adapter<myAdapterr.MyViewHolderr> i
     DatabaseHelper myDB;
 
 
-    String data1[], data2[],data3[];
+    String data1[],data3[];
+    String data2;
 
     Context context;
     private List<String> exampleListFullName;
-    private List<String> exampleListFullprice;
+   // private List<String> exampleListFullprice;
     private List<String> exampleListFulls3;
     List<String> listFilteredPrice;
     List<String> itemList;
@@ -42,13 +43,13 @@ public class myAdapterr extends RecyclerView.Adapter<myAdapterr.MyViewHolderr> i
 
 
 
-    public myAdapterr(Context ct, String s1[], String s2[],  String s3[]){
+    public myAdapterr(Context ct, String s1[], String s2,  String s3[]){
         context=ct;
         data1=s1;
         data2=s2;
         data3=s3;
         exampleListFullName = new ArrayList<>(Arrays.asList(data1));
-        exampleListFullprice = new ArrayList<>(Arrays.asList(data2));
+       // exampleListFullprice = new ArrayList<>(Arrays.asList(data2));
         exampleListFulls3 = new ArrayList<>(Arrays.asList(data3));
         itemList  = new ArrayList<String>( Arrays.asList(data1));
         listFiltereds3= new ArrayList<>();
@@ -72,7 +73,7 @@ public class myAdapterr extends RecyclerView.Adapter<myAdapterr.MyViewHolderr> i
     @Override
     public void onBindViewHolder(@NonNull MyViewHolderr holder, final int position) {
         holder.mytext1.setText(data1[position]);
-        holder.mytext2.setText(data2[position]);
+        holder.mytext2.setText(data2);
         holder.mytext3.setText(data3[position]);
 
         holder.bt.setOnClickListener(new View.OnClickListener() {
@@ -94,7 +95,7 @@ public class myAdapterr extends RecyclerView.Adapter<myAdapterr.MyViewHolderr> i
 
     @Override
     public int getItemCount() {
-        return data2.length;
+        return data1.length;
     }
 
 
@@ -111,7 +112,7 @@ public class myAdapterr extends RecyclerView.Adapter<myAdapterr.MyViewHolderr> i
             if( charSequence.toString().isEmpty()){
 
                 listFilteredName.addAll(exampleListFullName);
-                listFilteredPrice.addAll(exampleListFullprice);
+               // listFilteredPrice.addAll(exampleListFullprice);
                 listFiltereds3.addAll(exampleListFulls3);
 
 
@@ -125,7 +126,7 @@ public class myAdapterr extends RecyclerView.Adapter<myAdapterr.MyViewHolderr> i
 
                     if (exampleListFullName.get(i).toLowerCase().contains(charSequence.toString().toLowerCase())){
                         listFilteredName.add(exampleListFullName.get(i));
-                        listFilteredPrice.add(exampleListFullprice.get(i));
+                       // listFilteredPrice.add(exampleListFullprice.get(i));
                         listFiltereds3.add(exampleListFulls3.get(i));
                     }
                 }
@@ -141,21 +142,22 @@ public class myAdapterr extends RecyclerView.Adapter<myAdapterr.MyViewHolderr> i
 
         @Override //UI thread
         protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
-            List<String> priceList = new ArrayList<String>(Arrays.asList(data2));
+          //  List<String> priceList = new ArrayList<String>(Arrays.asList(data2));
             List<String> s3List = new ArrayList<String>(Arrays.asList(data3));
 
 
             //itemList.clear();
-            priceList.clear();
+           // priceList.clear();
             s3List.clear();
 
             // exampleListFull.clear(); //
             itemList.clear();
             itemList.addAll((Collection<? extends String>) filterResults.values);
-            priceList.addAll(listFilteredPrice);
+          //  priceList.addAll(listFilteredPrice);
             s3List.addAll(listFiltereds3);
             data1=itemList.toArray(new String[0]);
-            data2=priceList.toArray(new String[0]);
+           // data2=priceList.toArray(new String[0]);
+
             data3=s3List.toArray(new String[0]);
 
             notifyDataSetChanged();

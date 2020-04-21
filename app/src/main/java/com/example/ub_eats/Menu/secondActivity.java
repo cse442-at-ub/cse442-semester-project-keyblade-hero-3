@@ -47,7 +47,8 @@ public class secondActivity extends AppCompatActivity {
 
     DatabaseConnector db;
 
-    String s1[], s2[], s3[];
+    String s1[], s3[];
+    String s2;
     myAdapterr myAdapterr;
 
     @Override
@@ -73,7 +74,7 @@ public class secondActivity extends AppCompatActivity {
                 String[] names = new String[d.get(0).size()];
                 String[] prices = new String[d.get(1).size()];
                 s1 = d.get(0).toArray(names);
-                s2=getResources().getStringArray(R.array.Champs_description);
+                s2= getResources().getString(R.string.price);
                 s3 = d.get(1).toArray(prices);
 
                /* s1=getResources().getStringArray(R.array.ChampaSushi_Item);
@@ -82,7 +83,7 @@ public class secondActivity extends AppCompatActivity {
             }
             else{
                 s1=getResources().getStringArray(R.array.ChampaSushi_Item);
-                s2=getResources().getStringArray(R.array.Champs_description);
+                 s2= getResources().getString(R.string.price);
                 s3=getResources().getStringArray(R.array.ChampaSushi_price);
             }
 
@@ -100,19 +101,19 @@ public class secondActivity extends AppCompatActivity {
 
         else if (messInt==1){
             s1=getResources().getStringArray(R.array.Jamba_Item);
-            s2=getResources().getStringArray(R.array.menu_description);
+            s2= getResources().getString(R.string.price);
             s3=getResources().getStringArray(R.array.ChampaSushi_price);
         }else if (messInt==2){//Change to Moes
             s1=getResources().getStringArray(R.array.Jamba_Item);
-            s2=getResources().getStringArray(R.array.menu_description);
+            s2= getResources().getString(R.string.price);
             s3=getResources().getStringArray(R.array.ChampaSushi_price);
         }else if (messInt==3){//Change to TimHortons item
             s1=getResources().getStringArray(R.array.Jamba_Item);
-            s2=getResources().getStringArray(R.array.menu_description);
+            s2= getResources().getString(R.string.price);
             s3=getResources().getStringArray(R.array.ChampaSushi_price);
         }else{
             s1=getResources().getStringArray(R.array.menu_Item);
-            s2=getResources().getStringArray(R.array.menu_description);
+            s2= getResources().getString(R.string.price);
             s3=getResources().getStringArray(R.array.ChampaSushi_price);
         }
 
