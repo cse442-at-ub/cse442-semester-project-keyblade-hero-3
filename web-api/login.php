@@ -19,7 +19,7 @@
    $conn = connect();
    $username = null;
    $pass = null;
-   $sql = "SELECT username FROM Users WHERE (username = :username AND password = :password)";
+   $sql = "SELECT COUNT(*) FROM Users WHERE (username = :username AND password = :password)";
    $stmt = $conn->prepare($sql);
    $stmt->bindParam(':username', $username);
    $stmt->bindParam(':password', $pass);
@@ -34,10 +34,14 @@
 
    $username = $decoded_params[username];
    $pass = $decoded_params[pass];
+
+   //$username = "test";
+   //$pass = "badpass";
    
 
    $count = $stmt->execute();
-   print_r($count);
+   $count = $stmt->fetch();
+   print_r($count[0]);
    $conn = null;
 
    //echo json_encode($_POST);
