@@ -18,15 +18,12 @@
    $conn = null;
    $conn = connect();
    $username = null;
-   $email = null;
-   $phone = null;
    $pass = null;
-   $sql = "INSERT INTO Users (username, pass, email, phone) VALUES (:username, :pass, :email, :phone)";
+   $sql = "SELECT username FROM Users WHERE (username = :username AND password = :password)";
    $stmt = $conn->prepare($sql);
    $stmt->bindParam(':username', $username);
-   $stmt->bindParam(':pass', $pass);
-   $stmt->bindParam(':email', $email);
-   $stmt->bindParam(':phone', $phone);
+   $stmt->bindParam(':password', $pass);
+
    
    //$user_id = 9999;
    //$del_id = 9999;
@@ -37,11 +34,10 @@
 
    $username = $decoded_params[username];
    $pass = $decoded_params[pass];
-   $email = $decoded_params[email];
-   $phone = $decoded_params[phone];
+   
 
-   $stmt->execute();
-   print_r($conn->lastInsertID());
+   $count = $stmt->execute();
+   print_r($count);
    $conn = null;
 
    //echo json_encode($_POST);
