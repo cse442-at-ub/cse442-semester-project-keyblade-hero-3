@@ -21,7 +21,7 @@
    $email = null;
    $phone = null;
    $pass = null;
-   $sql = "INSERT INTO Users (username, pass, email, phone) VALUES (:username, :pass, :email, :phone)";
+   $sql = "INSERT INTO Users (username, password, email, phone) VALUES (:username, :pass, :email, :phone)";
    $stmt = $conn->prepare($sql);
    $stmt->bindParam(':username', $username);
    $stmt->bindParam(':pass', $pass);
@@ -39,6 +39,11 @@
    $pass = $decoded_params[pass];
    $email = $decoded_params[email];
    $phone = $decoded_params[phone];
+
+   //$username = "test";
+   //$pass = "badpass";
+   //$email = "whatever@notreal.com";
+   //$phone = "999-999-9999";
 
    $stmt->execute();
    print_r($conn->lastInsertID());
