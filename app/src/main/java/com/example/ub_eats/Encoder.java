@@ -18,9 +18,9 @@ public class Encoder {
         SecureRandom r = new SecureRandom();
         byte[] salt = new byte[20];
         r.nextBytes(salt);
-        String string_salt = Base64.getEncoder().encodeToString(salt);
+        //String string_salt = Base64.getEncoder().encodeToString(salt);
         //Salt hard-coded for now
-        //String string_salt = "2AxGUi/qgnHOZRuG2RaUMtLhe+Q=";
+        String string_salt = "2AxGUi/qgnHOZRuG2RaUMtLhe+Q=";
         String pass_and_hash = string_salt + password;
         MessageDigest digest = MessageDigest.getInstance("SHA-512");
         digest.update(pass_and_hash.getBytes(StandardCharsets.UTF_8));
@@ -33,7 +33,7 @@ public class Encoder {
     }
 
     public String decodePassword(String pass, String salt_value) throws NoSuchAlgorithmException {
-        //Decodes a password given the salt
+        //Encodes a password given the salt
         String pass_and_hash = salt_value + pass;
         MessageDigest digest = MessageDigest.getInstance("SHA-512");
         digest.update(pass_and_hash.getBytes(StandardCharsets.UTF_8));

@@ -83,7 +83,7 @@ public class DatabaseConnector {
         List<ArrayList<String>> q;
         AsyncHttpDataPull pull = new AsyncHttpDataPull();
         try {
-            q = pull.execute(dining_location).get();
+            q = pull.execute(database_name, dining_location).get();
             all_items_pulled = q;
             Log.d("Size", Integer.toString(all_items_pulled.size()));
 
@@ -118,9 +118,8 @@ public class DatabaseConnector {
         AsyncHttpUserRegister reg = new AsyncHttpUserRegister();
         try {
             String result = reg.execute(user, pass, phone, email).get();
-            if (result.equals("Pass")) {
-                return ("Passed");
-            }
+            if(result.equals("Pass")){
+                return ("Passed");}
 
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -134,24 +133,9 @@ public class DatabaseConnector {
         AsyncHttpUserLogin login = new AsyncHttpUserLogin();
         try {
             String result = login.execute(user, pass).get();
-            if (Integer.valueOf(result) > 0) {
+            if(Integer.valueOf(result) > 0) {
                 System.out.println(result);
-                return "Passed";
-            }
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        }
-        return "Failed";
-    }
-
-    public String httpGetUserSalt(String user) {
-        AsyncHttpGetUserSalt login = new AsyncHttpGetUserSalt();
-        try {
-            String result = login.execute(user).get();
-            System.out.println("Salt value returned is: " + result);
-            return result;
+                return "Passed";}
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
@@ -245,59 +229,36 @@ public class DatabaseConnector {
             }
             try {
                 HttpURLConnection con = (HttpURLConnection) u.openConnection();
-                con.setRequestMethod("POST");
-                con.setDoOutput(true);
-                String r_name = "\"" + strings[0] + "\"";
+                con.setRequestMethod("GET");
+                BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream()));
+                StringBuffer sb = new StringBuffer();
+                String line;
+                ArrayList<String> names = new ArrayList<>();
+                ArrayList<String> prices = new ArrayList<>();
 
-                String output = String.format("{\"restaurant\":%s}",r_name);
-                System.out.println(output);
-
-
-                byte[] out = output.getBytes("UTF-8");
-                int length = out.length;
-
-                con.setFixedLengthStreamingMode(length);
-                con.setRequestProperty("Content-Type", "application/json");
-                con.connect();
-                OutputStreamWriter os = new OutputStreamWriter(con.getOutputStream());
-                os.write(output);
-                os.flush();
-                os.close();
-
-
-
-                int responseCode = con.getResponseCode();
-                System.out.println(responseCode);
-                if (responseCode == HttpURLConnection.HTTP_OK) {
-                    BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream()));
-                    StringBuffer sb = new StringBuffer();
-                    String line;
-                    ArrayList<String> names = new ArrayList<>();
-                    ArrayList<String> prices = new ArrayList<>();
-
-                    while ((line = br.readLine()) != null) {
-                        sb.append(line);
-                        if (line.contains("item_nm")) {
-                            names.add(line.split("=>")[1]);
-                        }
-
-                        if (line.contains("price")) {
-                            prices.add(line.split("=>")[1]);
-                        }
-                    }
-                    br.close();
-                    for (int i = 0; i < names.size(); i++) {
-                        System.out.println(names.get(i));
-                        System.out.println(prices.get(i));
-
+                while ((line = br.readLine()) != null) {
+                    sb.append(line);
+                    if (line.contains("item_nm")) {
+                        names.add(line.split("=>")[1]);
                     }
 
-                    List<ArrayList<String>> menu = new ArrayList<>();
-                    menu.add(names);
-                    menu.add(prices);
-                    return menu;
-                    //Return menu. That is the list we will use to fill up the recyclerview
+                    if (line.contains("price")) {
+                        prices.add(line.split("=>")[1]);
+                    }
                 }
+                br.close();
+                for (int i = 0; i < names.size(); i++) {
+                    System.out.println(names.get(i));
+                    System.out.println(prices.get(i));
+
+                }
+
+                List<ArrayList<String>> menu = new ArrayList<>();
+                menu.add(names);
+                menu.add(prices);
+                return menu;
+                //Return menu. That is the list we will use to fill up the recyclerview
+
 
             } catch (IOException e) {
                 e.printStackTrace();
@@ -390,16 +351,16 @@ public class DatabaseConnector {
                 Encoder e = new Encoder();
                 String[] salt_and_pass = e.encodePassword(strings[1]);
 
-                String salt = "\"" + salt_and_pass[0] + "\"";
+                //String salt = "\"" + salt_and_pass[0] + "\"";
                 //Salt is static for now
-                //String z = "2AxGUi/qgnHOZRuG2RaUMtLhe+Q=";
-                //String salt = "\"" + z + "\"";
+                String z = "2AxGUi/qgnHOZRuG2RaUMtLhe+Q=";
+                String salt = "\"" + z + "\"";
                 String pass = "\"" + salt_and_pass[1] + "\"";
 
 
                 String output = String.format("{\"username\":%s,\"pass\":%s,\"email\":%s,\"phone\":%s,\"salt_value\":%s}", user, pass, email, phone, salt);
                 System.out.println(output);
-                System.out.println("The salt created: " + salt);
+
 
                 byte[] out = output.getBytes("UTF-8");
                 int length = out.length;
@@ -432,7 +393,7 @@ public class DatabaseConnector {
 
     }
 
-    static private class AsyncHttpUserLogin extends AsyncTask<String, Void, String> {
+    static private class AsyncHttpUserLogin extends AsyncTask<String, Void, String>{
         @Override
         protected String doInBackground(String... strings) {
             String url = "http://www-student.cse.buffalo.edu/CSE442-542/2020-Spring/cse-442q/web-api/login.php/";
@@ -486,58 +447,5 @@ public class DatabaseConnector {
 
 
         }
-    }
-
-
-    static private class AsyncHttpGetUserSalt extends AsyncTask<String, Void, String> {
-        @Override
-        protected String doInBackground(String... strings) {
-            String url = "http://www-student.cse.buffalo.edu/CSE442-542/2020-Spring/cse-442q/web-api/usersalt.php/";
-            URL u;
-            try {
-                u = new URL(url);
-                HttpURLConnection con = (HttpURLConnection) u.openConnection();
-                con.setRequestMethod("POST");
-                con.setDoOutput(true);
-                String user = "\"" + strings[0] + "\"";
-
-                String output = String.format("{\"username\":%s}", user);
-                System.out.println(output);
-
-
-                byte[] out = output.getBytes("UTF-8");
-                int length = out.length;
-
-                con.setFixedLengthStreamingMode(length);
-                con.setRequestProperty("Content-Type", "application/json");
-                con.connect();
-                OutputStreamWriter os = new OutputStreamWriter(con.getOutputStream());
-                os.write(output);
-                os.flush();
-                os.close();
-                int responseCode = con.getResponseCode();
-                System.out.println(responseCode);
-                if (responseCode == HttpURLConnection.HTTP_OK) { //success
-                    StringBuffer sb = new StringBuffer();
-                    BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream()));
-                    String line;
-
-                    while ((line = br.readLine()) != null) {
-                        sb.append(line);
-                    }
-                    br.close();
-                    return sb.toString().trim();
-                }
-            } catch (ProtocolException e) {
-                e.printStackTrace();
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            return ("POST request failed");
-
-
         }
     }
-}
