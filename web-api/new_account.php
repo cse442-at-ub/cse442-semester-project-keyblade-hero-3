@@ -21,12 +21,15 @@
    $email = null;
    $phone = null;
    $pass = null;
-   $sql = "INSERT INTO Users (username, password, email, phone) VALUES (:username, :pass, :email, :phone)";
+   $salt = null;
+
+   $sql = "INSERT INTO Users (username, password, email, phone, salt_value) VALUES (:username, :pass, :email, :phone, :salt)";
    $stmt = $conn->prepare($sql);
    $stmt->bindParam(':username', $username);
    $stmt->bindParam(':pass', $pass);
    $stmt->bindParam(':email', $email);
    $stmt->bindParam(':phone', $phone);
+   $stmt->bindParam(':salt', $salt);
    
    //$user_id = 9999;
    //$del_id = 9999;
@@ -39,6 +42,7 @@
    $pass = $decoded_params[pass];
    $email = $decoded_params[email];
    $phone = $decoded_params[phone];
+   $salt = $decoded_params[salt_value];
 
    //$username = "test";
    //$pass = "badpass";
