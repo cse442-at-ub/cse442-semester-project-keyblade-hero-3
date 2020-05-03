@@ -83,7 +83,7 @@ public class DatabaseConnector {
         List<ArrayList<String>> q;
         AsyncHttpDataPull pull = new AsyncHttpDataPull();
         try {
-            q = pull.execute(database_name, dining_location).get();
+            q = pull.execute(dining_location).get();
             all_items_pulled = q;
             Log.d("Size", Integer.toString(all_items_pulled.size()));
 
@@ -245,36 +245,59 @@ public class DatabaseConnector {
             }
             try {
                 HttpURLConnection con = (HttpURLConnection) u.openConnection();
-                con.setRequestMethod("GET");
-                BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream()));
-                StringBuffer sb = new StringBuffer();
-                String line;
-                ArrayList<String> names = new ArrayList<>();
-                ArrayList<String> prices = new ArrayList<>();
+                con.setRequestMethod("POST");
+                con.setDoOutput(true);
+                String r_name = "\"" + strings[0] + "\"";
 
-                while ((line = br.readLine()) != null) {
-                    sb.append(line);
-                    if (line.contains("item_nm")) {
-                        names.add(line.split("=>")[1]);
+                String output = String.format("{\"restaurant\":%s}",r_name);
+                System.out.println(output);
+
+
+                byte[] out = output.getBytes("UTF-8");
+                int length = out.length;
+
+                con.setFixedLengthStreamingMode(length);
+                con.setRequestProperty("Content-Type", "application/json");
+                con.connect();
+                OutputStreamWriter os = new OutputStreamWriter(con.getOutputStream());
+                os.write(output);
+                os.flush();
+                os.close();
+
+
+
+                int responseCode = con.getResponseCode();
+                System.out.println(responseCode);
+                if (responseCode == HttpURLConnection.HTTP_OK) {
+                    BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream()));
+                    StringBuffer sb = new StringBuffer();
+                    String line;
+                    ArrayList<String> names = new ArrayList<>();
+                    ArrayList<String> prices = new ArrayList<>();
+
+                    while ((line = br.readLine()) != null) {
+                        sb.append(line);
+                        if (line.contains("item_nm")) {
+                            names.add(line.split("=>")[1]);
+                        }
+
+                        if (line.contains("price")) {
+                            prices.add(line.split("=>")[1]);
+                        }
+                    }
+                    br.close();
+                    for (int i = 0; i < names.size(); i++) {
+                        System.out.println(names.get(i));
+                        System.out.println(prices.get(i));
+
                     }
 
-                    if (line.contains("price")) {
-                        prices.add(line.split("=>")[1]);
-                    }
+                    List<ArrayList<String>> menu = new ArrayList<>();
+                    menu.add(names);
+                    menu.add(prices);
+                    return menu;
+                    //Return menu. That is the list we will use to fill up the recyclerview
                 }
-                br.close();
-                for (int i = 0; i < names.size(); i++) {
-                    System.out.println(names.get(i));
-                    System.out.println(prices.get(i));
-
-                }
-
-                List<ArrayList<String>> menu = new ArrayList<>();
-                menu.add(names);
-                menu.add(prices);
-                return menu;
-                //Return menu. That is the list we will use to fill up the recyclerview
-
 
             } catch (IOException e) {
                 e.printStackTrace();
