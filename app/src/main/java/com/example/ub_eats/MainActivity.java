@@ -31,7 +31,9 @@ public class MainActivity extends AppCompatActivity {
                 EditText user_field= findViewById(R.id.user_name_field);
                 EditText pass_field = findViewById(R.id.password_field);
                 Encoder q = new Encoder();
-                String salt = "2AxGUi/qgnHOZRuG2RaUMtLhe+Q=";
+                DatabaseConnector db = new DatabaseConnector();
+
+                String salt = db.httpGetUserSalt(user_field.getText().toString());
 
                 String encoded_pass = q.decodePassword(pass_field.getText().toString(), salt);
 
