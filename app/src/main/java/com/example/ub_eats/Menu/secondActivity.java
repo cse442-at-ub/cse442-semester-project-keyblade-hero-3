@@ -87,16 +87,6 @@ public class secondActivity extends AppCompatActivity {
                 s3=getResources().getStringArray(R.array.ChampaSushi_price);
             }
 
-
-
-            //List<ArrayList<String>> menu = db.get_dining_menu("Orders");
-            //ArrayList<String> items = menu.get(0);
-            //ArrayList<String> prices = menu.get(1);
-
-            //Log.d("ITEMS", items.get(0));
-
-
-
         }
 
         else if (messInt==1){
