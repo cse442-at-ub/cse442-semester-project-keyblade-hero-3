@@ -10,14 +10,4 @@
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
-    <Button
-        android:id="@+id/button33"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:background="@color/colorPrimary"
-        android:onClick="srhBut"
-        android:text="Search All Menu"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
