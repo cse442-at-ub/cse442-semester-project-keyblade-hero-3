@@ -24,8 +24,8 @@ public class MenuMain extends AppCompatActivity {
     RecyclerView recyclerView;
 
     String[] s1, s2;
-    int[] images={R.drawable.champa_sush, R.drawable.jamba,
-    R.drawable.moes_at_putnams, R.drawable.hubies, R.drawable.sizzles,
+    int[] images={R.drawable.champa_sush, R.drawable.moes_at_putnams,
+    R.drawable.tim_hortons_at_the_alfiero_center, R.drawable.hubies, R.drawable.sizzles,
     R.drawable.perks, R.drawable.the_elli};
 
     DatabaseHelper mydb;
@@ -62,7 +62,7 @@ public class MenuMain extends AppCompatActivity {
         db = new DatabaseConnector();
         mydb=new DatabaseHelper(this);
         mydb.deleteTable();
-        List<ArrayList<String>> d = db.httpPullMenu(".Moes");
+        List<ArrayList<String>> d = db.httpPullMenu("Moes");
         String[] names = new String[d.get(0).size()];
         String[] prices = new String[d.get(1).size()];
         s11 = d.get(0).toArray(names);
@@ -80,25 +80,7 @@ public class MenuMain extends AppCompatActivity {
         //openActivity();
 
     }
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_search, menu);
-        MenuItem item= menu.findItem(R.id.action_search);
-        SearchView searchView= (SearchView) item.getActionView();
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                myAdapterr.getFilter().filter(newText);
-                return false;
-            }
-        });
-        return super.onCreateOptionsMenu(menu);
-    }
+   
 
     private void openActivity() {
 
