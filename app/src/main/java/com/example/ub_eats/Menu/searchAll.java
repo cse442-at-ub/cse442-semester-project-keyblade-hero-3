@@ -15,11 +15,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
-import java.util.Arrays;
-import java.io.*;
 
 public class searchAll extends AppCompatActivity {
     RecyclerView recyclerView;
@@ -27,14 +23,9 @@ public class searchAll extends AppCompatActivity {
 
     DatabaseConnector db;
 
-
-    String Chmp[], Moe[], Tim[];
-    String Chmpp[], Moep[], Timp[];
     String s1[], s3[];
     String s2;
     myAdapterr myAdapterr;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,98 +40,23 @@ public class searchAll extends AppCompatActivity {
 
         db = new DatabaseConnector();
         mydb=new DatabaseHelper(this);
-        List<String> All = new ArrayList<String>();
-        List<ArrayList<String>> Champa = db.httpPullMenu("Champa_Sushi");
-        List<ArrayList<String>> Timm = db.httpPullMenu("Tim_Hortons");
-
         List<ArrayList<String>> d = db.httpPullMenu("Moes");
-
-        int sz=0;
-
-
-        if(Champa != null){
-
-            String[] names = new String[Champa.get(0).size()];
-            sz+=Champa.get(0).size();
-            String[] prices = new String[Champa.get(1).size()];
-            Chmp = Champa.get(0).toArray(names);
-            s2= getResources().getString(R.string.price);
-            Chmpp= Champa.get(1).toArray(prices);
-        }
-        else{
-            s1=getResources().getStringArray(R.array.ChampaSushi_Item);
-            s2= getResources().getString(R.string.price);
-            s3=getResources().getStringArray(R.array.ChampaSushi_price);
-        }
-        if(Timm != null){
-            String[] names = new String[Timm.get(0).size()];
-            sz+=Timm.get(0).size();
-            String[] prices = new String[Timm.get(1).size()];
-            Tim = Timm.get(0).toArray(names);
-            s2= getResources().getString(R.string.price);
-            Timp= Timm.get(1).toArray(prices);
-
-        }
-        else{
-            s1=getResources().getStringArray(R.array.ChampaSushi_Item);
-            s2= getResources().getString(R.string.price);
-            s3=getResources().getStringArray(R.array.ChampaSushi_price);
-        }
         if(d != null){
             String[] names = new String[d.get(0).size()];
             String[] prices = new String[d.get(1).size()];
-            sz+=d.get(0).size();
-            Moe = d.get(0).toArray(names);
+            s1 = d.get(0).toArray(names);
             s2= getResources().getString(R.string.price);
-            Moep= d.get(1).toArray(prices);
-            System.out.println("=============");
+            s3 = d.get(1).toArray(prices);
 
-            System.out.println("Tim array  : " + Arrays.toString(Tim));
-
+               /* s1=getResources().getStringArray(R.array.ChampaSushi_Item);
+                s2=getResources().getStringArray(R.array.Champs_description);
+                s3=getResources().getStringArray(R.array.ChampaSushi_price);*/
         }
         else{
             s1=getResources().getStringArray(R.array.ChampaSushi_Item);
             s2= getResources().getString(R.string.price);
             s3=getResources().getStringArray(R.array.ChampaSushi_price);
         }
-
-
-        int first = Champa.get(0).size();
-        int second = d.get(0).size();
-        int third = Timm.get(0).size();
-
-        s1=new String [sz];
-        s3= new String [sz];
-       // System.out.println("size s1" +sz);
-
-
-       /* System.arraycopy(Chmp, 0, s1, 0, first);
-        System.arraycopy(Moe, 0, s1, first, second);
-        System.arraycopy(Tim, 0, s1, second, third);*/
-
-        System.arraycopy(Chmpp, 0, s3, 0, first);
-        System.arraycopy(Moep, 0, s3, first, second);
-        System.arraycopy(Timp, 0, s3, second, third);
-
-        List<String> list1 = new ArrayList<String>();
-        Collections.addAll(list1, Chmp);
-        Collections.addAll(list1, Moe);
-        Collections.addAll(list1, Tim);
-
-        s1=list1.toArray(s1);
-
-        List<String> list2 = new ArrayList<String>();
-        Collections.addAll(list2, Chmpp);
-        Collections.addAll(list2, Moep);
-        Collections.addAll(list2, Timp);
-
-        s3=list2.toArray(s3);
-        System.out.println("-----------------");
-        System.out.println(Timp);
-
-
-        System.out.println(list1.size());
-        System.out.println(list1);
 
         myAdapterr=new myAdapterr(this, s1,s2,s3);
 
