@@ -24,8 +24,8 @@
 
     <string-array name="pro_lang">
         <item>Champa Sushi</item>
-        <item>Jamba Juice</item>
         <item>Moes</item>
+        <item>Tim Hortons</item>
         <item>Hubies</item>
         <item>Sizzles</item>
         <item>Perks</item>
@@ -37,25 +37,16 @@
     </string>
 
     <string-array name="description">
-        <item>This is random descriptio</item>
-        <item>This is random descriptio</item>
-        <item>This is random descriptio</item>
+        <item>Sushi</item>
+        <item>Southwest Grill</item>
+        <item>Cafe and Bake Shop </item>
         <item>This is random descriptio</item>
         <item>This is random descriptio</item>
         <item>This is random descriptio</item>
         <item>This is random descriptio</item>
 
     </string-array>
-    <string-array name="Champs_description">
-        <item>Price: </item>
-        <item>Price: </item>
-        <item>Price: </item>
-        <item>Price: </item>
-        <item>Price: </item>
-        <item>Price: </item>
-        <item>Price: </item>
 
-    </string-array>
 
     <string-array name="menu_Item">
         <item>item 1</item>

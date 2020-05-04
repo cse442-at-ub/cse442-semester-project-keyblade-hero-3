@@ -47,7 +47,8 @@ public class secondActivity extends AppCompatActivity {
 
     DatabaseConnector db;
 
-    String s1[], s2[], s3[];
+    String s1[], s3[];
+    String s2;
     myAdapterr myAdapterr;
 
     @Override
@@ -68,12 +69,12 @@ public class secondActivity extends AppCompatActivity {
 
         int messInt=Integer.valueOf(message);
         if(messInt==0){
-            List<ArrayList<String>> d = db.httpPullMenu("Champga Sushi");
+            List<ArrayList<String>> d = db.httpPullMenu("Champa_Sushi");
             if(d != null){
                 String[] names = new String[d.get(0).size()];
                 String[] prices = new String[d.get(1).size()];
                 s1 = d.get(0).toArray(names);
-                s2=getResources().getStringArray(R.array.Champs_description);
+                s2= getResources().getString(R.string.price);
                 s3 = d.get(1).toArray(prices);
 
                /* s1=getResources().getStringArray(R.array.ChampaSushi_Item);
@@ -82,45 +83,56 @@ public class secondActivity extends AppCompatActivity {
             }
             else{
                 s1=getResources().getStringArray(R.array.ChampaSushi_Item);
-                s2=getResources().getStringArray(R.array.Champs_description);
+                s2= getResources().getString(R.string.price);
                 s3=getResources().getStringArray(R.array.ChampaSushi_price);
             }
-
-
-
-            //List<ArrayList<String>> menu = db.get_dining_menu("Orders");
-            //ArrayList<String> items = menu.get(0);
-            //ArrayList<String> prices = menu.get(1);
-
-            //Log.d("ITEMS", items.get(0));
-
-
 
         }
 
         else if (messInt==1){
-            s1=getResources().getStringArray(R.array.Jamba_Item);
-            s2=getResources().getStringArray(R.array.menu_description);
-            s3=getResources().getStringArray(R.array.ChampaSushi_price);
+            List<ArrayList<String>> d = db.httpPullMenu("Moes");
+            if(d != null) {
+                String[] names = new String[d.get(0).size()];
+                String[] prices = new String[d.get(1).size()];
+                s1 = d.get(0).toArray(names);
+                s2 = getResources().getString(R.string.price);
+                s3 = d.get(1).toArray(prices);
+            }
+            else{
+                s1=getResources().getStringArray(R.array.ChampaSushi_Item);
+                s2= getResources().getString(R.string.price);
+                s3=getResources().getStringArray(R.array.ChampaSushi_price);
+            }
+
         }else if (messInt==2){//Change to Moes
-            s1=getResources().getStringArray(R.array.Jamba_Item);
-            s2=getResources().getStringArray(R.array.menu_description);
-            s3=getResources().getStringArray(R.array.ChampaSushi_price);
+            List<ArrayList<String>> d = db.httpPullMenu("Tim_Hortons");
+            if(d != null) {
+                String[] names = new String[d.get(0).size()];
+                String[] prices = new String[d.get(1).size()];
+                s1 = d.get(0).toArray(names);
+                s2 = getResources().getString(R.string.price);
+                s3 = d.get(1).toArray(prices);
+            }
+            else{
+                s1=getResources().getStringArray(R.array.ChampaSushi_Item);
+                s2= getResources().getString(R.string.price);
+                s3=getResources().getStringArray(R.array.ChampaSushi_price);
+            }
         }else if (messInt==3){//Change to TimHortons item
             s1=getResources().getStringArray(R.array.Jamba_Item);
-            s2=getResources().getStringArray(R.array.menu_description);
+            s2= getResources().getString(R.string.price);
             s3=getResources().getStringArray(R.array.ChampaSushi_price);
         }else{
             s1=getResources().getStringArray(R.array.menu_Item);
-            s2=getResources().getStringArray(R.array.menu_description);
+            s2= getResources().getString(R.string.price);
             s3=getResources().getStringArray(R.array.ChampaSushi_price);
         }
 
 
-         myAdapterr=new myAdapterr(this, s1,s2,s3);
+        myAdapterr=new myAdapterr(this, s1,s2,s3);
 
 
-       // int n=myAdapterr.data1.length;
+        // int n=myAdapterr.data1.length;
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         recyclerView.setAdapter(myAdapterr);
