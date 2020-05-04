@@ -150,8 +150,8 @@ public class DatabaseConnector {
         AsyncHttpGetUserSalt login = new AsyncHttpGetUserSalt();
         try {
             String result = login.execute(user).get();
-                System.out.println("Salt value returned is: " + result);
-                return result;
+            System.out.println("Salt value returned is: " + result);
+            return result;
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {

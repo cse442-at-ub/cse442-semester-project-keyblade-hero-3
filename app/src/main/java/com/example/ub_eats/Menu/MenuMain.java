@@ -25,8 +25,8 @@ public class MenuMain extends AppCompatActivity {
 
     String[] s1, s2;
     int[] images={R.drawable.champa_sush, R.drawable.moes_at_putnams,
-    R.drawable.tim_hortons_at_the_alfiero_center, R.drawable.hubies, R.drawable.sizzles,
-    R.drawable.perks, R.drawable.the_elli};
+            R.drawable.tim_hortons_at_the_alfiero_center, R.drawable.hubies, R.drawable.sizzles,
+            R.drawable.perks, R.drawable.the_elli};
 
     DatabaseHelper mydb;
 
@@ -43,7 +43,7 @@ public class MenuMain extends AppCompatActivity {
         setContentView(R.layout.activity_menu);
 
         recyclerView=findViewById(R.id.recyclerView);
-         recyclerView1=findViewById(R.id.recyclerView);
+        recyclerView1=findViewById(R.id.recyclerView);
 
 
         s1=getResources().getStringArray(R.array.pro_lang);
@@ -69,7 +69,7 @@ public class MenuMain extends AppCompatActivity {
         s22= getResources().getString(R.string.price);
         s33 = d.get(1).toArray(prices);
         myAdapterr=new myAdapterr(this, s11,s22,s33);
-       // recyclerView1.setLayoutManager(new LinearLayoutManager(this));
+        // recyclerView1.setLayoutManager(new LinearLayoutManager(this));
         //recyclerView1.setAdapter(myAdapterr);
         System.out.println(" search menu main");
 
@@ -80,18 +80,23 @@ public class MenuMain extends AppCompatActivity {
         //openActivity();
 
     }
-   
+
 
     private void openActivity() {
 
-            Intent intent=new Intent(this, secondActivity.class);
-            startActivity(intent);
+        Intent intent=new Intent(this, secondActivity.class);
+        startActivity(intent);
 
 
     }
 
     public void srhBut(View view) {
         Intent intent=new Intent(this, searchAll.class);
+        startActivity(intent);
+    }
+
+    public void srhBut1(View view) {
+        Intent intent= new Intent(this, searchAll.class);
         startActivity(intent);
     }
 }

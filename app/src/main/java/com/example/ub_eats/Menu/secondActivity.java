@@ -83,19 +83,9 @@ public class secondActivity extends AppCompatActivity {
             }
             else{
                 s1=getResources().getStringArray(R.array.ChampaSushi_Item);
-                 s2= getResources().getString(R.string.price);
+                s2= getResources().getString(R.string.price);
                 s3=getResources().getStringArray(R.array.ChampaSushi_price);
             }
-
-
-
-            //List<ArrayList<String>> menu = db.get_dining_menu("Orders");
-            //ArrayList<String> items = menu.get(0);
-            //ArrayList<String> prices = menu.get(1);
-
-            //Log.d("ITEMS", items.get(0));
-
-
 
         }
 
@@ -139,10 +129,10 @@ public class secondActivity extends AppCompatActivity {
         }
 
 
-         myAdapterr=new myAdapterr(this, s1,s2,s3);
+        myAdapterr=new myAdapterr(this, s1,s2,s3);
 
 
-       // int n=myAdapterr.data1.length;
+        // int n=myAdapterr.data1.length;
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         recyclerView.setAdapter(myAdapterr);
